@@ -1,6 +1,7 @@
 var Adapters = function(nqb) {
     // Load MySQL Driver
     var mysql = require('mysql');
+    var assign = Object.assign || require('object.assign');
 
     // Verify setting property exists
     if (!nqb.hasOwnProperty('settings')) {
@@ -50,7 +51,7 @@ var Adapters = function(nqb) {
         delete nqb.settings.password
 
         // Merge any driver-specific settings into connection settings
-        that.connection_settings = Object.assign(that.connection_settings, nqb.settings);
+        that.connection_settings = assign(that.connection_settings, nqb.settings);
     }
 
     map_connection_settings();
@@ -107,7 +108,7 @@ var Adapters = function(nqb) {
         var qb = get_query_builder();
         var qe = get_query_exec(qb, connection);
 
-        var adapter = Object.assign({
+        var adapter = assign({
             connection_settings: function() {
                 return that.connection_settings;
             },
